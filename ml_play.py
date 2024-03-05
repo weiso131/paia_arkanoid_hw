@@ -9,7 +9,7 @@ from collections import deque
 
 
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
-from tool.cnn_pos_predict import ml_predict
+from tool.cnn_pos_predict_cls import ml_predict
 from tool.data_generator import get_graph
    
 
@@ -26,7 +26,7 @@ class MLPlay:
         self.count = 0
         self.datas = []
         self.last_data = deque([])
-
+        
         
 
     def update(self, scene_info, keyboard=None, *args, **kwargs):
@@ -55,33 +55,16 @@ class MLPlay:
 
 
         #填出影像
-        new = get_graph(bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y)
-        #graph = np.array(self.last_data.copy())
-        self.datas.append(new)
-        use_pos_predict = True
-        goal_x = ml_predict(new, use_pos_predict, self.ball_x, self.ball_y, speed_x, speed_y)
+        new = get_graph(bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0])
+        command = ml_predict(new)
 
-        if (goal_x - plateform_x > 0): command = "MOVE_RIGHT"
-        elif (goal_x - plateform_x < 0): command = "MOVE_LEFT"
-
-
-
-        if (self.ball_y == 395 and len(self.datas) != 0):
-            print(len(self.datas))
-            #print(self.ball_x)
-            return_data = [self.datas, self.ball_x / 5]
-            # with open('C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph_ml/graph' + str(self.count) + '.pickle', 'wb') as f:
-            #     pickle.dump(return_data, f)
-            self.datas = []
-            self.count += 1
 
 
         # Make the caller to invoke `reset()` for the next round.
         if (scene_info["status"] == "GAME_OVER" or
             scene_info["status"] == "GAME_PASS"):
             
-            #print(self.ball_x)
-            
+
             self.ball_x = 93
             self.ball_y = 395
             self.datas = []
@@ -104,6 +87,4 @@ class MLPlay:
 
 
 # cd C:\Users\weiso131\Desktop\paia2.4.5\resources\app.asar.unpacked\games\arkanoid
-# python -m mlgame -i ./ml/ml_play_template.py . --difficulty NORMAL --level 20
-
-#到13
+# python -m mlgame -f 120 --one-shot -i ./ml/ml_play.py . --difficulty NORMAL --level 1

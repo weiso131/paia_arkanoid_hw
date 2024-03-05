@@ -31,7 +31,7 @@ class MLPlay:
         self.last_brick = -1
         self.zero_point_pos = set([])
 
-        self.action_space = {"MOVE_RIGHT" : 0, "MOVE_LEFT" : 1}
+        self.action_space = {"MOVE_RIGHT" : 0, "MOVE_LEFT" : 1, "NONE" : 2}
 
         
 
@@ -57,17 +57,10 @@ class MLPlay:
         
         command = "MOVE_RIGHT"
         
+        #if (speed_x == 10): print("切球!")
         
         # Make the caller to invoke `reset()` for the next round.
-        if (scene_info["status"] == "GAME_OVER" or
-            scene_info["status"] == "GAME_PASS"):
-            self.last_brick = -1
-            self.ball_x = 93
-            self.ball_y = 395
-            self.datas = []
-            self.zero_point_pos = set([])
-            
-            return "RESET"
+        
         if not self.ball_served:
             self.ball_served = True
             return "SERVE_TO_RIGHT"
@@ -81,26 +74,39 @@ class MLPlay:
 
 
         #填出影像
-        new = get_graph(bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y)
+        new = get_graph(bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0])
 
         self.datas.append([new, self.action_space[command]])
         
 
 
-        if (self.ball_y == 395 and len(self.datas) > 1):
-            if (self.last_brick > len(bricks) + len(hard_bricks) * 2):
+        if ((self.ball_y == 395 and len(self.datas) > 1) or scene_info["status"] == "GAME_PASS"):
+            #if (self.last_brick > len(bricks) + len(hard_bricks) * 2):
+            if (True):
+                dataName = str(self.count)
+                if (scene_info["status"] == "GAME_PASS"):
+                    dataName = "_end"
+
                 self.last_brick = len(bricks) + len(hard_bricks) * 2#得分才能存紀錄
                 return_data = self.datas #圖像資料們, 落點
-                with open('C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph/graph' + str(self.count) + '.pickle', 'wb') as f:
+                with open('C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph/graph' + dataName + '.pickle', 'wb') as f:
                     pickle.dump(return_data, f)
                 self.datas = []
                 self.count += 1
                 self.zero_point_pos = set([])
             else:
-                if (self.ball_x in self.zero_point_pos):
+                if ((self.ball_x, plateform_x) in self.zero_point_pos):
                     self.datas = []
-                self.zero_point_pos.add(self.ball_x)
-
+                self.zero_point_pos.add((self.ball_x, plateform_x))
+        if (scene_info["status"] == "GAME_OVER" or
+            scene_info["status"] == "GAME_PASS"):
+            self.last_brick = -1
+            self.ball_x = 93
+            self.ball_y = 395
+            self.datas = []
+            self.zero_point_pos = set([])
+            
+            return "RESET"
 
         return command
 

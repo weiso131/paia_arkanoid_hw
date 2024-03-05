@@ -4,7 +4,7 @@ import sys
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 
 
-def get_graph(bricks:list, hard_bricks:list, ball_x : int, ball_y : int, last_ball_x : int, last_ball_y : int) -> np.array:
+def get_graph(bricks:list, hard_bricks:list, ball_x : int, ball_y : int, last_ball_x : int, last_ball_y : int, plateform_x_left) -> np.array:
     #填出影像
     graph = np.zeros((40, 100))
 
@@ -16,6 +16,11 @@ def get_graph(bricks:list, hard_bricks:list, ball_x : int, ball_y : int, last_ba
         for i in range(5):
             for j in range(2):
                 graph[min(39, int(x / 5) + i), int(y / 5) + j] = 25
+    
+    #填出盤子
+    for i in range(8):
+        x = max(0, min(39, int(plateform_x_left / 5) + i))
+        graph[x, int(395 / 5)] = 10
 
     #填出球
     graph[min(39, int(last_ball_x / 5)), int(last_ball_y / 5)] = 50

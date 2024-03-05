@@ -30,36 +30,120 @@ def pos_predict(pos_x, pos_y, speed_x, speed_y, wall_l = 0, wall_r = 195, down_l
         pos_x += speed_x
         pos_y += speed_y
         
-        if (pos_x > wall_r):
+        if (pos_x >= wall_r):
             speed_x *= -1
-        if (pos_x < wall_l):
+            
+        if (pos_x <= wall_l):
             speed_x *= -1
             
     return pos_x
 
 def movement_choice(ball_x, ball_y, speed_x , speed_y, plateform_x):
-    command = "MOVE_RIGHT"
-    rd = np.random.randint(0, 2)
-    if ((speed_y) > 0):
+    command = "NONE"
+    rd = np.random.randint(0, 3)
+    range_rd = np.random.randint(5, 11)
+    if (speed_y > 0 and ball_y > 250):
         goal_x = pos_predict(ball_x, ball_y, speed_x , speed_y) 
-        if (goal_x - plateform_x > 7): command = "MOVE_RIGHT"
-        elif (goal_x - plateform_x < 7): command = "MOVE_LEFT"
+        if (goal_x - plateform_x > range_rd): command = "MOVE_RIGHT"
+        elif (goal_x - plateform_x < range_rd): command = "MOVE_LEFT"
 
-        elif (ball_y >= 390):
-            
+        elif (ball_y >= 370):
+            print("開搞")
             if (rd == 0):
                 print("切球")
                 if (speed_x > 0): command = "MOVE_RIGHT"
                 else: command = "MOVE_LEFT"
+            elif(rd == 1):
+                command = "NONE"
             else:
+                print("反向")
                 if (speed_x > 0): command = "MOVE_LEFT"
                 else: command = "MOVE_RIGHT"
+        if (ball_y == 395):
+            print(goal_x - plateform_x)
+    
+    elif (speed_y < 0 and ball_y > 380):
+        if (ball_x + speed_x - plateform_x > 0 or ball_x - plateform_x > 0): command = "MOVE_RIGHT"
+        elif(ball_x + speed_x - plateform_x < 0 or ball_x - plateform_x < 0): command = "MOVE_LEFT"
+        else: command = "NONE"
+        
+    else:
+        if (100 - plateform_x > 5): command = "MOVE_RIGHT"
+        elif (100 - plateform_x < 5): command = "MOVE_LEFT"
+        else: command = "NONE"
+    
+    return command
 
-    elif ((speed_y) < 0 and ball_y > 300):
+"""
+#10
+command = "NONE"
+    rd = np.random.randint(0, 3)
+    if (speed_y > 0 and ball_y > 150):
+        goal_x = pos_predict(ball_x, ball_y, speed_x , speed_y) 
+        if (goal_x - plateform_x > 5): command = "MOVE_RIGHT"
+        elif (goal_x - plateform_x < 5): command = "MOVE_LEFT"
+
+        elif (ball_y >= 380):
+            if (rd == 0):
+                print("切球")
+                if (speed_x > 0): command = "MOVE_RIGHT"
+                else: command = "MOVE_LEFT"
+            elif(rd == 1):
+                command = "NONE"
+            else:
+                print("反向")
+                if (speed_x > 0): command = "MOVE_LEFT"
+                else: command = "MOVE_RIGHT"
+        if (ball_y == 395):
+            print(goal_x - plateform_x)
+    
+    elif ((speed_y) < 0 and ball_y > 370):
         if (ball_x - plateform_x > 0): command = "MOVE_RIGHT"
-        else: command = "MOVE_LEFT"
+        elif(ball_x - plateform_x < 0): command = "MOVE_LEFT"
+        else: command = "NONE"
+        
     else:
         if (100 - plateform_x > 0): command = "MOVE_RIGHT"
-        else: command = "MOVE_LEFT"
-
+        elif (100 - plateform_x < 0): command = "MOVE_LEFT"
+        else: command = "NONE"
+    
     return command
+"""
+
+"""
+19
+command = "NONE"
+    rd = np.random.randint(0, 3)
+    range_rd = np.random.randint(5, 11)
+    if (speed_y > 0 and ball_y > 250):
+        goal_x = pos_predict(ball_x, ball_y, speed_x , speed_y) 
+        if (goal_x - plateform_x > range_rd): command = "MOVE_RIGHT"
+        elif (goal_x - plateform_x < range_rd): command = "MOVE_LEFT"
+
+        elif (ball_y >= 370):
+            print("開搞")
+            if (True):
+                print("切球")
+                if (speed_x > 0): command = "MOVE_RIGHT"
+                else: command = "MOVE_LEFT"
+            elif(rd == 1):
+                command = "NONE"
+            else:
+                print("反向")
+                if (speed_x > 0): command = "MOVE_LEFT"
+                else: command = "MOVE_RIGHT"
+        if (ball_y == 395):
+            print(goal_x - plateform_x)
+    
+    elif (speed_y < 0 and ball_y > 380):
+        if (ball_x + speed_x - plateform_x > 0 or ball_x - plateform_x > 0): command = "MOVE_RIGHT"
+        elif(ball_x + speed_x - plateform_x < 0 or ball_x - plateform_x < 0): command = "MOVE_LEFT"
+        else: command = "NONE"
+        
+    else:
+        if (100 - plateform_x > 0): command = "MOVE_RIGHT"
+        elif (100 - plateform_x < 0): command = "MOVE_LEFT"
+        else: command = "NONE"
+    
+    return command
+"""
