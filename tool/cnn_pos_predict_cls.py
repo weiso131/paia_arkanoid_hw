@@ -5,25 +5,24 @@ sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked
 from torch import nn
 import torch
 
-import torch.nn.functional as F
 
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
 
-        self.conv = nn.Sequential(nn.Conv2d(1, 16, kernel_size=3, padding=1, stride=2),
+        self.conv = nn.Sequential(nn.Conv2d(2, 16, kernel_size=3, padding=1, stride=2),
                                   nn.ReLU(),
                                   nn.Conv2d(16, 64, kernel_size=3, padding=1, stride=2),
-                                  nn.ReLU())
+                                  nn.ReLU(),)
 
-        fc_sample = torch.zeros((1, 40, 100))
+        fc_sample = torch.zeros((2, 40, 100))
         self.fc_input = len(torch.flatten(self.conv(fc_sample)))
 
         self.fc = nn.Sequential(nn.Linear(self.fc_input, 1024),
                                 nn.ReLU(),
                                 nn.Linear(1024, 3))
         
-        
+    
     def forward(self, x):
         x = self.conv(x)
         x = torch.flatten(x, 1)
@@ -44,7 +43,7 @@ model = model.to(dtype=torch.float32)
 action_space = ["MOVE_RIGHT", "MOVE_LEFT", "NONE"]
 
 def ml_predict(graph) -> str:
-    tensor_graph = torch.tensor([graph])
+    tensor_graph = torch.tensor(graph)
     
     model.eval()
     with torch.no_grad():

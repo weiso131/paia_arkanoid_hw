@@ -2,7 +2,8 @@ import os
 import sys
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 
-i = 19
+i = 10
+
 while (i < 25):
     print(f"graph{i}")
 
@@ -30,6 +31,7 @@ while (i < 25):
         continue
     i += 1
     
+#& C:/Users/weiso131/anaconda3/envs/AI/python.exe c:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/data_collect.py
 
 
 

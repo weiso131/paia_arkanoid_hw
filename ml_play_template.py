@@ -6,7 +6,7 @@ import sys
 import numpy as np
 import pickle
 from os.path import exists
-
+import os
 
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 from tool.pos_predict import movement_choice
@@ -29,7 +29,7 @@ class MLPlay:
         self.count = i
         self.datas = []
         self.last_brick = -1
-        self.zero_point_pos = set([])
+        self.zero_point_pos = []
 
         self.action_space = {"MOVE_RIGHT" : 0, "MOVE_LEFT" : 1, "NONE" : 2}
 
@@ -79,25 +79,52 @@ class MLPlay:
         self.datas.append([new, self.action_space[command]])
         
 
+        
+
 
         if ((self.ball_y == 395 and len(self.datas) > 1) or scene_info["status"] == "GAME_PASS"):
-            #if (self.last_brick > len(bricks) + len(hard_bricks) * 2):
-            if (True):
-                dataName = str(self.count)
-                if (scene_info["status"] == "GAME_PASS"):
-                    dataName = "_end"
+            #得分承認過去的努力????
+            if (self.last_brick > len(bricks) + len(hard_bricks) * 2):
+                self.zero_point_pos = []
 
-                self.last_brick = len(bricks) + len(hard_bricks) * 2#得分才能存紀錄
-                return_data = self.datas #圖像資料們, 落點
-                with open('C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph/graph' + dataName + '.pickle', 'wb') as f:
-                    pickle.dump(return_data, f)
-                self.datas = []
-                self.count += 1
-                self.zero_point_pos = set([])
+            #重複0分動作處理
             else:
                 if ((self.ball_x, plateform_x) in self.zero_point_pos):
-                    self.datas = []
-                self.zero_point_pos.add((self.ball_x, plateform_x))
+                    i = len(self.zero_point_pos) - 1
+                    while (i >= 0 and self.zero_point_pos[i] != (self.ball_x, plateform_x)):
+                        self.zero_point_pos.pop()
+                        self.count -= 1
+                        i -= 1
+                        try:
+                            os.remove('C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph/graph' + "_zero" + str(self.count) + '.pickle')
+                        except Exception as e:
+                            print(e)
+
+                self.zero_point_pos.append((self.ball_x, plateform_x))
+
+                print(self.zero_point_pos)
+
+
+            dataName = str(self.count)
+            if (scene_info["status"] == "GAME_PASS"):
+                dataName = "_end"
+            if (self.last_brick == len(bricks) + len(hard_bricks) * 2):
+                dataName = "_zero" + str(self.count)
+
+            self.last_brick = len(bricks) + len(hard_bricks) * 2#得分才能存紀錄
+            return_data = self.datas #圖像資料們, 落點
+            with open('C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph/graph' + dataName + '.pickle', 'wb') as f:
+                pickle.dump(return_data, f)
+            self.datas = []
+            self.count += 1
+
+            
+
+            
+
+            
+
+                
         if (scene_info["status"] == "GAME_OVER" or
             scene_info["status"] == "GAME_PASS"):
             self.last_brick = -1
