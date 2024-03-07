@@ -2,3 +2,5 @@ dqn_lunar.zip
 .history
 *.pickle
 *.pth
+test_data_clean
+use_data_clean.py
