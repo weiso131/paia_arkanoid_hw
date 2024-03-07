@@ -3,4 +3,5 @@ dqn_lunar.zip
 *.pickle
 *.pth
 test_data_clean
+test_train_data_clean
 use_data_clean.py

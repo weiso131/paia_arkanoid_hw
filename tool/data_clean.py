@@ -50,7 +50,28 @@ def data_compare(old_data_path : str, new_data_path : str):
     with open(new_data_path, 'wb') as f:
         pickle.dump(new_data_correct, f)
 
+def train_data_clean(train_data_path : str, origin_data_path : str):
+    """
+    origin_data_path
+        graphX
+            data1.pickle
+            data2.pickle
+            data3.pickle
+    train_path_path
 
+    """
+    origin_data_dirs = listdir(origin_data_path)
+    for dir_name in origin_data_dirs:
+        data_list = listdir(origin_data_path + '/' + dir_name)
+        for data_name in data_list:
+            #print(origin_data_path + '/' + dir_name + '/' + data_name)
+
+            train_data = listdir(train_data_path)
+            for td in train_data:
+                data_compare(train_data_path + '/' + td, origin_data_path + '/' + dir_name + '/' + data_name)
+            os.rename(src=origin_data_path + '/' + dir_name + '/' + data_name, 
+                        dst=train_data_path + '/' + dir_name + '_' + data_name)
+    
 
 
     
