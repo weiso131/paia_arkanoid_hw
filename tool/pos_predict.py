@@ -41,23 +41,25 @@ def pos_predict(pos_x, pos_y, speed_x, speed_y, wall_l = 0, wall_r = 195, down_l
 def movement_choice(ball_x, ball_y, speed_x , speed_y, plateform_x):
     command = "NONE"
     rd = np.random.randint(0, 3)
+    rd_range = np.random.randint(5, 10)
     if (speed_y > 0 and ball_y > 150):
         goal_x = pos_predict(ball_x, ball_y, speed_x , speed_y) 
-        if (goal_x - plateform_x > 5): command = "MOVE_RIGHT"
-        elif (goal_x - plateform_x < 5): command = "MOVE_LEFT"
+        if (goal_x - plateform_x > rd_range): command = "MOVE_RIGHT"
+        elif (goal_x - plateform_x < rd_range): command = "MOVE_LEFT"
 
         elif (ball_y >= 380):
             if (rd == 0):
-                
+                print("切球")
                 if (speed_x > 0): command = "MOVE_RIGHT"
                 else: command = "MOVE_LEFT"
             elif(rd == 1):
                 command = "NONE"
             else:
+                print("反向")
                 if (speed_x > 0): command = "MOVE_LEFT"
                 else: command = "MOVE_RIGHT"
         if (ball_y == 395):
-            print(f"ball_x{ball_x}, speed_x{speed_x}, plateform_x{plateform_x}")
+            print(goal_x - plateform_x)
     
     elif ((speed_y) < 0 and ball_y > 370):
         if (ball_x - plateform_x > 0): command = "MOVE_RIGHT"

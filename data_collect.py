@@ -2,14 +2,14 @@ import os
 import sys
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 
-i = 1
+i = 2
 
 
 
 while (i < 25):
     print(f"graph{i}")
 
-    os.system("python -m mlgame -f 120 --one-shot -i ./ml/ml_play_template.py . --difficulty NORMAL --level " + str(i))
+    os.system("python -m mlgame -f 300 --one-shot -i ./ml/ml_play_template.py . --difficulty NORMAL --level " + str(i))
 
     
     x = input("continue(y/n/r)")

@@ -97,13 +97,6 @@ class MLPlay:
                 pickle.dump(return_data, f)
             self.datas = []
             self.count += 1
-
-            
-
-            
-
-            
-
                 
         if (scene_info["status"] == "GAME_OVER" or
             scene_info["status"] == "GAME_PASS"):

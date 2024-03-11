@@ -48,7 +48,7 @@ def data_compare(old_data_path : str, new_data_path : str):
                 old_plateform_x_left == new_plateform_x_left
                 
             if (bool_check): 
-                    print(f"new_ball_x:{new_ball_x}, old_ball_x:{old_ball_x}, new_plateform_x_left:{new_plateform_x_left}, old_plateform_x_left:{old_plateform_x_left}")
+                    #print(f"new_ball_x:{new_ball_x}, old_ball_x:{old_ball_x}, new_plateform_x_left:{new_plateform_x_left}, old_plateform_x_left:{old_plateform_x_left}")
                     save_data = False
                     break
         if (save_data):

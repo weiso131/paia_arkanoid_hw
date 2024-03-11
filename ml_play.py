@@ -25,8 +25,16 @@ class MLPlay:
         self.ball_y = 395
         self.count = 0
         self.datas = []
-        self.last_data = deque([])
+        self.last_brick = -1
+        self.zero_point_pos = []
+
+
+
+        self.origin_bricks = []
         
+
+        self.action_space = {"MOVE_RIGHT" : 0, "MOVE_LEFT" : 1, "NONE" : 2}
+
         
 
     def update(self, scene_info, keyboard=None, *args, **kwargs):
@@ -41,21 +49,24 @@ class MLPlay:
         self.ball_y = scene_info["ball"][1]
         
         speed_x = self.ball_x - last_ball_x
-        speed_y = self.ball_y - last_ball_y#y速度大於0時是下降
+        speed_y = self.ball_y - last_ball_y #y速度大於0時是下降
         
         
         
         plateform_x = scene_info['platform'][0] + 20
-        plateform_y = scene_info['platform'][1]
         bricks = scene_info["bricks"]        #一般方塊的存在位置
         hard_bricks = scene_info["hard_bricks"]
         
         command = "NONE"
         
+        
+        
+        
+        
 
 
         #填出影像
-        new = get_graph(bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0])
+        new = get_graph((bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0], self.origin_bricks))
         command = ml_predict(new)
 
 
@@ -73,6 +84,7 @@ class MLPlay:
             return "RESET"
         if not self.ball_served:
             self.ball_served = True
+            self.origin_bricks.extend(scene_info["hard_bricks"])
             command = "SERVE_TO_RIGHT"
             
 
