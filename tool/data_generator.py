@@ -4,9 +4,11 @@ import sys
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 
 
-def get_graph(bricks:list, hard_bricks:list, ball_x : int, ball_y : int, last_ball_x : int, last_ball_y : int, plateform_x_left : int, 
-              origin_bricks : list) -> np.array:
+def get_graph(data : tuple) -> np.array:
     #填出影像
+
+    bricks, hard_bricks, ball_x, ball_y, last_ball_x, last_ball_y, plateform_x_left, origin_bricks = data
+
     graph = np.zeros((2, 40, 100))
 
     #填出方塊

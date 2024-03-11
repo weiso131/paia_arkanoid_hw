@@ -80,7 +80,7 @@ class MLPlay:
 
 
         #填出影像
-        new = get_graph(bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0], self.origin_bricks)
+        new = (bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0], self.origin_bricks)
 
         self.datas.append([new, self.action_space[command]])
         
@@ -91,6 +91,7 @@ class MLPlay:
         #儲存的資料
         if ((self.ball_y == 395 and len(self.datas) > 1) or scene_info["status"] == "GAME_PASS"):
             dataName = str(int(self.count / 10)) + str(int(self.count % 10))
+
             return_data = self.datas #圖像資料們, 執行的動作
             with open('C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph/' + dataName + '.pickle', 'wb') as f:
                 pickle.dump(return_data, f)

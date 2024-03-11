@@ -48,17 +48,16 @@ def movement_choice(ball_x, ball_y, speed_x , speed_y, plateform_x):
 
         elif (ball_y >= 380):
             if (rd == 0):
-                print("切球")
+                
                 if (speed_x > 0): command = "MOVE_RIGHT"
                 else: command = "MOVE_LEFT"
             elif(rd == 1):
                 command = "NONE"
             else:
-                print("反向")
                 if (speed_x > 0): command = "MOVE_LEFT"
                 else: command = "MOVE_RIGHT"
         if (ball_y == 395):
-            print(goal_x - plateform_x)
+            print(f"ball_x{ball_x}, speed_x{speed_x}, plateform_x{plateform_x}")
     
     elif ((speed_y) < 0 and ball_y > 370):
         if (ball_x - plateform_x > 0): command = "MOVE_RIGHT"
