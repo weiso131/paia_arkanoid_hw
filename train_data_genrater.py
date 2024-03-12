@@ -10,13 +10,13 @@ def pickle_read(path):
 
 path = "C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/"
 
-for dir_path in listdir(path + "graph/"):
-    print(dir_path)
-    data_list = listdir(path + "graph/" + dir_path)
-    for i in range(len(data_list) - 2, -1, -1):
-        for j in range(len(data_list) - 1, i, -1):
-            #print(f"new:{data_list[i]}, old:{data_list[j]}")
-            data_compare(old_data_path=path + "graph/" + dir_path + '/' + data_list[j], new_data_path=path + "graph/" + dir_path + '/' + data_list[i])
+# for dir_path in listdir(path + "graph/"):
+#     print(dir_path)
+#     data_list = listdir(path + "graph/" + dir_path)
+#     for i in range(len(data_list) - 2, -1, -1):
+#         for j in range(len(data_list) - 1, i, -1):
+#             #print(f"new:{data_list[i]}, old:{data_list[j]}")
+#             data_compare(old_data_path=path + "graph/" + dir_path + '/' + data_list[j], new_data_path=path + "graph/" + dir_path + '/' + data_list[i])
 
 print("清理完畢")
 i = 0

@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 
-i = 2
+i = 20
 
 
 
