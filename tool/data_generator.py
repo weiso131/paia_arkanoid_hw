@@ -12,10 +12,10 @@ def get_graph(data : tuple) -> np.array:
     graph = np.zeros((2, 40, 100))
 
     #填出方塊
-    for x, y in origin_bricks:
-        for dim0 in range(2):
-            for i in range(3):
-                    graph[dim0, min(39, int(x / 5) + i), int(y / 5)] = 10
+    # for x, y in origin_bricks:
+    #     for dim0 in range(2):
+    #         for i in range(3):
+    #                 graph[dim0, min(39, int(x / 5) + i), int(y / 5)] = 10
 
     for x, y in bricks:
         for dim0 in range(2):

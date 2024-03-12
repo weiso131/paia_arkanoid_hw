@@ -61,12 +61,13 @@ class MLPlay:
         
         
         
-        
-        
-
 
         #填出影像
         new = get_graph((bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0], self.origin_bricks))
+
+        # if (self.ball_y == 395):
+        #     print(f"bricks: {len(bricks) + len(hard_bricks)}, ball_x: {self.ball_x}, ball_y: {self.ball_y}, last_ball_x: {last_ball_x}, last_ball_y: {last_ball_y}, platform_x: {scene_info['platform'][0]}")
+
         command = ml_predict(new)
 
 
