@@ -34,7 +34,7 @@ class MLPlay:
 
 
         self.origin_bricks = []
-        
+        self.origin_hard_bricks = []
 
         self.action_space = {"MOVE_RIGHT" : 0, "MOVE_LEFT" : 1, "NONE" : 2}
 
@@ -67,7 +67,7 @@ class MLPlay:
         if not self.ball_served:
             self.ball_served = True
             self.origin_bricks = scene_info["bricks"]
-            self.origin_bricks.extend(scene_info["hard_bricks"])
+            self.origin_hard_bricks = scene_info["hard_bricks"]
 
             return "SERVE_TO_RIGHT"
             
@@ -80,7 +80,7 @@ class MLPlay:
 
 
         #填出影像
-        new = (bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0], self.origin_bricks)
+        new = (bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0], self.origin_bricks, self.origin_hard_bricks)
 
         self.datas.append([new, self.action_space[command]])
         

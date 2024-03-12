@@ -1,8 +1,10 @@
 dqn_lunar.zip
 .history
 *.pickle
+past_pth
 *.pth
 test_data_clean
 test_train_data_clean
 use_data_clean.py
 test
+trash_can

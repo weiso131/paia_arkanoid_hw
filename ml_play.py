@@ -85,6 +85,7 @@ class MLPlay:
             return "RESET"
         if not self.ball_served:
             self.ball_served = True
+            self.origin_bricks = scene_info["bricks"]
             self.origin_bricks.extend(scene_info["hard_bricks"])
             command = "SERVE_TO_RIGHT"
             

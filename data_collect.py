@@ -9,7 +9,7 @@ i = 20
 while (i < 25):
     print(f"graph{i}")
 
-    os.system("python -m mlgame -f 300 --one-shot -i ./ml/ml_play_template.py . --difficulty NORMAL --level " + str(i))
+    os.system("python -m mlgame -f 60 --one-shot -i ./ml/ml_play_template.py . --difficulty NORMAL --level " + str(i))
 
     
     x = input("continue(y/n/r)")

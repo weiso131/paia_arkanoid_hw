@@ -33,7 +33,7 @@ class SimpleCNN(nn.Module):
 
 
 
-check_point = torch.load("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/checkpoint_cls_score85.pth")
+check_point = torch.load("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/checkpoint_cls_score105.pth")
 model = SimpleCNN()#要跟讀取的模型同個結構
 model.load_state_dict(check_point)
 
