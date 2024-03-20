@@ -1,18 +1,11 @@
-"""
-The template of the main script of the machine learning process
-"""
-import pygame
+
 import sys
-import numpy as np
-import pickle
-from collections import deque
 
 
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 from tool.cnn_pos_predict_cls import ml_predict
 from tool.data_generator import get_graph
    
-
 
 class MLPlay:
     
@@ -48,12 +41,7 @@ class MLPlay:
         self.ball_x = scene_info["ball"][0]
         self.ball_y = scene_info["ball"][1]
         
-        speed_x = self.ball_x - last_ball_x
-        speed_y = self.ball_y - last_ball_y #y速度大於0時是下降
         
-        
-        
-        plateform_x = scene_info['platform'][0] + 20
         bricks = scene_info["bricks"]        #一般方塊的存在位置
         hard_bricks = scene_info["hard_bricks"]
         
@@ -65,9 +53,7 @@ class MLPlay:
         #填出影像
         new = get_graph((bricks, hard_bricks, self.ball_x, self.ball_y, last_ball_x, last_ball_y, scene_info['platform'][0], self.origin_bricks))
 
-        # if (self.ball_y == 395):
-        #     print(f"bricks: {len(bricks) + len(hard_bricks)}, ball_x: {self.ball_x}, ball_y: {self.ball_y}, last_ball_x: {last_ball_x}, last_ball_y: {last_ball_y}, platform_x: {scene_info['platform'][0]}")
-
+        
         command = ml_predict(new)
 
 
@@ -80,7 +66,6 @@ class MLPlay:
             self.ball_x = 93
             self.ball_y = 395
             self.datas = []
-            self.last_data = deque([])
 
             return "RESET"
         if not self.ball_served:

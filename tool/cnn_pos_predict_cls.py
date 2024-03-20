@@ -1,5 +1,4 @@
 import sys
-import numpy as np
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 
 from torch import nn

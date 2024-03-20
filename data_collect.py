@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 
-i = 20
+i = 1
 
 
 
@@ -16,11 +16,12 @@ while (i < 25):
     path = 'C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/graph'
     data_list = os.listdir(path)
     if (x == "y"):
-        if (os.path.exists(path + "/graph" + str(i)) != True):
-            os.mkdir(path + "/graph" + str(i))
+        dir_name = path + "/graph" + str(i)
+        if (os.path.exists(dir_name) != True):
+            os.mkdir(dir_name)
             for data_path in data_list:
                 if (".pickle" in data_path):
-                    os.rename(path + "/" + data_path, path + "/graph" + str(i) + '/' + data_path)
+                    os.rename(path + "/" + data_path, dir_name + '/' + data_path)
             
 
     for data_path in data_list:

@@ -1,7 +1,5 @@
 import sys
 import pickle
-import os
-from os import listdir
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml/tool")
 
 #from data_generator import get_graph

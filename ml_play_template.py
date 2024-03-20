@@ -1,16 +1,15 @@
 """
 The template of the main script of the machine learning process
 """
-import pygame
 import sys
-import numpy as np
+
 import pickle
 from os.path import exists
-import os
+
 
 sys.path.append("C:/Users/weiso131/Desktop/paia2.4.5/resources/app.asar.unpacked/games/arkanoid/ml")
 from tool.pos_predict import movement_choice
-from tool.data_generator import get_graph
+
    
 
 
